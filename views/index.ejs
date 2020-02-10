@@ -13,15 +13,17 @@
         <% for (var columna = 0; columna < 8; columna++) { %>
             <td>
               <% if (meToca == 1) { %>
-              <form action="/seleccionarficha" method="post">
                 <% if (tablero[fila][columna] == 0 || tablero[fila][columna].indexOf("N") == 0) { %>
                 <input type="hidden" name="fila" value="<%= fila %>" />
                 <input type="hidden" name="columna" value="<%= columna %>" />
                 <input type="submit" value="."/>
                 <% } else { %>
+                  <form action="/seleccionarficha" method="post">
+
                   <input type="hidden" name="fila" value="<%= fila %>" />
                   <input type="hidden" name="columna" value="<%= columna %>" />
-                  <input type="submit" value="<%= tablero[fila][columna] %>"/>
+                  <input type="submit" name="ficha" value="<%= tablero[fila][columna] %>"/>
+                  </form>
                   <% } %>
               <% } else { %>
                 <% if (tablero[fila][columna] == 0 || tablero[fila][columna].indexOf("B") == 0) { %>
@@ -29,11 +31,14 @@
                   <input type="hidden" name="columna" value="<%= columna %>" />
                   <input type="submit" value="."/>
                   <% } else { %>
+                    <form action="/seleccionarficha" method="post">
+
                     <input type="hidden" name="fila" value="<%= fila %>" />
                     <input type="hidden" name="columna" value="<%= columna %>" />
-                    <input type="submit" value="<%= tablero[fila][columna] %>"/>
+                    <input type="submit" name="ficha" value="<%= tablero[fila][columna] %>"/>
+                    </form>
                     <% } %>
-              </form>
+              
               <% } %>
             </td> 
         <% } %>

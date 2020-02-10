@@ -35,18 +35,27 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Ajedrez', tablero, meToca, usuario });
 });
 
+function esBlanca(ficha) {
+  return (ficha.indexOf("B") == 0);
+}
+
 router.post('/seleccionarficha', function(req, res, next) {
   
+  // esto contiene la posición del botón que hemos pulsado 
+  const {fila, columna, ficha} = req.body;
+  console.log(fila,columna,ficha);
+  
+
   function posiblesMovimientosPeon(ficha, origen, destino) {
     // tiene que mostrar las casillas a las que se puede mover
     // 1 o 2 filas arriba, misma columna
           // para las negras
-          if (ficha.indexOf("N") = 0) {
-            destino = origen.fila -= 1 || 2;
-          // para las blancas
-          } else if (ficha.indexOf("B") = 0) {
-            destino = origen.fila += 1 || 2;
-          }
+           if (ficha.indexOf("N") = 0) {
+             destino = origen.fila -= 1 || 2;
+           // para las blancas
+           } else if (esBlanca(ficha)) {
+             destino = origen.fila += 1 || 2;
+           }
   }
 
   res.render('index', { title: 'Ajedrez', tablero });
