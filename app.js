@@ -12,8 +12,8 @@ var app = express();
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['QMpyCbzri8dfN0SSW8^h1-BK', 'IV*O7HFA#qrewUdrlTpjQ25'],
-  maxAge: 60 * 1000
+  keys: ['QMpwdswdri8dfsfdsaSW8^h1-BK', 'IV*saadffgfA#qrweUdrlTpasd25'],
+  maxAge: 60 * 60 * 1000
 }))
 
 // view engine setup

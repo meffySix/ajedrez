@@ -15,6 +15,11 @@ const tablero = [
 var jugadores = 0;
 var turno = 1;
 
+// function tableroIJ (tablero, fila, columna) {
+
+//   alert(tablero[fila][columna]);
+// }
+
 /* Pantalla principal del juego. */
 router.get('/', function(req, res, next) {
   const session = req.session;
@@ -27,7 +32,7 @@ router.get('/', function(req, res, next) {
   }
   const meToca = (turno == session.jugador);
   console.log(meToca);
-  if (meToca) {
+  if (meToca == 1) {
     usuario = "Blancas";
   } else {
     usuario = "Negras";
@@ -38,25 +43,27 @@ router.get('/', function(req, res, next) {
 function esBlanca(ficha) {
   return (ficha.indexOf("B") == 0);
 }
+function esNegra(ficha) {
+  return (ficha.indexOf("N") == 0);
+}
 
-router.post('/seleccionarficha', function(req, res, next) {
-  
+// idealmente, esta función colocaría un 0 en el punto
+// de origen (primer click) y sustituiría lo del
+// punto de destino (segundo click) por la ficha (si la 
+// validación en el lado cliente se completa).
+    // function ponerFicha(ficha, destino, origen) {
+    //   tablero.splice(destino, 1, ficha);
+    //   tablero.splice(origen, 1, 0);
+    // }
+// function ponerFicha(ficha, filaDestino, filaOrigen, columnaDestino, columnaOrigen) {
+//   tablero[[filaOrigen, columnaOrigen]] = 0;
+//   tablero[[filaDestino, columnaDestino]] = ficha; 
+// }
+
+router.post('/ponerficha', function(req, res, next) {
   // esto contiene la posición del botón que hemos pulsado 
   const {fila, columna, ficha} = req.body;
   console.log(fila,columna,ficha);
-  
-
-  function posiblesMovimientosPeon(ficha, origen, destino) {
-    // tiene que mostrar las casillas a las que se puede mover
-    // 1 o 2 filas arriba, misma columna
-          // para las negras
-           if (ficha.indexOf("N") = 0) {
-             destino = origen.fila -= 1 || 2;
-           // para las blancas
-           } else if (esBlanca(ficha)) {
-             destino = origen.fila += 1 || 2;
-           }
-  }
 
   res.render('index', { title: 'Ajedrez', tablero });
 });
