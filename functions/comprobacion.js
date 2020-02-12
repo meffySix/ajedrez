@@ -1,23 +1,23 @@
 
 function comprobarGanador(t, f, c) { 
     // comprobar si hay alguna ficha con N
-    function comprobarN(tablero) {
+    function comprobarN(t) {
         return (t[f][c][0] == "N");
     }
     // comprobar si hay alguna ficha con B
-    function comprobarB(tablero) {
+    function comprobarB(t) {
         return (t[f][c][0] == "B");
     }
     // si no quedan fichas de una letra, gana el del otro color
-    for (var fila = 0; fila < 8; fila++) {
-        for (var columna = 0; columna < 8; columna++) {
-        comprobarN(tablero);
-        comprobarB(tablero);
+    for (var f = 0; f < 8; f++) {
+        for (var c = 0; c < 8; c++) {
+        comprobarN(t);
+        comprobarB(t);
         }
     }
-    if (!comprobarN(tablero)) {
+    if (!comprobarN(t)) {
         return "Blancas";
-    } else if (!comprobarB(tablero)) {
+    } else if (!comprobarB(t)) {
         return "Negras";
     } else {
         return 0;

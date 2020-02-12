@@ -24,6 +24,17 @@
 </head>
 <body>
     <script>
+
+    const t = // variable que representa nuestro tablero, empezando por B las piezas blancas y por N las piezas negras
+        [['NT', 'NC', 'NA', 'NR', 'ND', 'NA', 'NC', 'NT'], // acabando por T la torre, por A el alfil, por C el caballo, por R ek rey y por D la Dama
+        ['NP', 'NP', 'NP', 'NP', 'NP', 'NP', 'NP', 'NP'], // acabando todas por P, son los peones
+        ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], // colocamos una 'X en cada casilla que se encuentre vacia'
+        ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+        ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+        ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+        ['BP', 'BP', 'BP', 'BP', 'BP', 'BP', 'BP', 'BP'], // fila de peones blancos
+        ['BT', 'BC', 'BA', 'BR', 'BD', 'BA', 'BC', 'BT']]; // resto de piezas
+
         $('td').on('click', function(event){
             var $col = $(event.target)
             alert($col.attr('data-row') + "," + $col.attr('data-column'))

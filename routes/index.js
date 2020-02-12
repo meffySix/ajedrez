@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const { comprobarGanador } = require ('../functions/comprobacion')
 
-const tablero = [
+const t = [
   ["NT", "NC", "NA", "ND", "NR", "NA", "NC", "NT"],
   ["NP","NP", "NP", "NP", "NP", "NP", "NP", "NP"],
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -26,10 +25,10 @@ router.get('/', function(req, res, next) {
       }
     session.jugador = jugadores;
   }
-  const ganador = comprobarGanador(tablero);
-  if (ganador != 0) {
-    res.render("winner", {ganador})
-  } else {
+  // const ganador = comprobarGanador(t);
+  // if (ganador != 0) {
+  //   res.render("winner", {ganador})
+  // } else {
     const meToca = (turno == session.jugador);
     console.log(meToca);
     if (meToca == 1) {
@@ -37,8 +36,8 @@ router.get('/', function(req, res, next) {
     } else {
       usuario = "Negras";
     }
-    res.render('index', { title: 'Ajedrez', tablero, meToca, usuario });
-  }
+    res.render('index', { title: 'Ajedrez', t, meToca, usuario });
+  // }
 });
 
 router.post('/moverficha', function(req, res, next) {

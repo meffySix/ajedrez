@@ -12,7 +12,7 @@ var app = express();
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['QMpwdswdri8dfsfdsaSW8^h1-BK', 'IV*saadffgfA#qrweUdrlTpasd25'],
+  keys: ['QMpwdswqwedsi8dwaedsaSW8^h1-BK', 'IV*saqweffgfAfdsrweUdrlTpasd25'],
   maxAge: 60 * 60 * 1000
 }))
 

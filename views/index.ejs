@@ -9,23 +9,23 @@
     <h2>Tienes las fichas <%= usuario %></h2>
     <table>
       <% if (meToca == 1) { %>
-        <% for (var fila = 0; fila < 8; fila++) { %>
+        <% for (var f = 0; f < 8; f++) { %>
           <tr>
-          <% for (var columna = 0; columna < 8; columna++) { %>
+          <% for (var c = 0; c < 8; c++) { %>
               <td>
-                <% if (tablero[fila][columna] == 0) { %>
-                <input type="hidden" name="fila" value="<%= fila %>" />
-                <input type="hidden" name="columna" value="<%= columna %>" />
+                <% if (t[f][c] == 0) { %>
+                <input type="hidden" name="fila" value="<%= f %>" />
+                <input type="hidden" name="columna" value="<%= c %>" />
                 <input type="submit" value="."/>
-                <% } else if ( tablero[fila][columna].indexOf("N") == 0){ %>
-                  <input type="hidden" name="fila" value="<%= fila %>" />
-                  <input type="hidden" name="columna" value="<%= columna %>" />
-                  <input type="submit" value="<%= tablero[fila][columna] %>"/>
+                <% } else if ( t[f][c].indexOf("N") == 0){ %>
+                  <input type="hidden" name="fila" value="<%= f %>" />
+                  <input type="hidden" name="columna" value="<%= c %>" />
+                  <input type="submit" value="<%= t[f][c] %>"/>
                   <% } else { %>
                   <form action="/moverficha" method="post">
-                  <input type="hidden" name="fila" value="<%= fila %>" />
-                  <input type="hidden" name="columna" value="<%= columna %>" />
-                  <input type="submit" class="available" name="ficha" value="<%= tablero[fila][columna] %>"/>
+                  <input type="hidden" name="fila" value="<%= f %>" />
+                  <input type="hidden" name="columna" value="<%= c %>" />
+                  <input type="submit" class="available" name="ficha" value="<%= t[f][c] %>"/>
                   </form>
                   <% } %>
                 </td> 
@@ -33,24 +33,24 @@
               </tr>
               <% } %>
               <% } else { %>
-                <% for (var fila = 7; fila > -1; fila--) { %>
+                <% for (var f = 7; f > -1; f--) { %>
                   <tr>
-                  <% for (var columna = 0; columna < 8; columna++) { %>
+                  <% for (var c = 0; c < 8; c++) { %>
                       <td>
-                <% if (tablero[fila][columna] == 0) { %>
-                  <input type="hidden" name="fila" value="<%= fila %>" />
-                  <input type="hidden" name="columna" value="<%= columna %>" />
+                <% if (t[f][c] == 0) { %>
+                  <input type="hidden" name="fila" value="<%= f %>" />
+                  <input type="hidden" name="columna" value="<%= c %>" />
                   <input type="submit" value="."/>
-                  <% } else if ( tablero[fila][columna].indexOf("B") == 0){ %>
-                    <input type="hidden" name="fila" value="<%= fila %>" />
-                    <input type="hidden" name="columna" value="<%= columna %>" />
-                    <input type="submit" value="<%= tablero[fila][columna] %>"/>
+                  <% } else if ( t[f][c].indexOf("B") == 0){ %>
+                    <input type="hidden" name="fila" value="<%= f %>" />
+                    <input type="hidden" name="columna" value="<%= c %>" />
+                    <input type="submit" value="<%= t[f][c] %>"/>
                   <% } else { %>
                     <form action="/moverficha" method="post">
 
-                    <input type="hidden" name="fila" value="<%= fila %>" />
-                    <input type="hidden" name="columna" value="<%= columna %>" />
-                    <input type="submit" class="available" name="ficha" value="<%= tablero[fila][columna] %>"/>
+                    <input type="hidden" name="fila" value="<%= f %>" />
+                    <input type="hidden" name="columna" value="<%= c %>" />
+                    <input type="submit" class="available" name="ficha" value="<%= t[f][c] %>"/>
                     </form>
                     <% } %>
               <% } %>
