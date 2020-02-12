@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const { comprobarGanador } = require ('../functions/comprobaciones')
 
 const tablero = [
   ["NT", "NC", "NA", "ND", "NR", "NA", "NC", "NT"],
@@ -15,11 +16,6 @@ const tablero = [
 var jugadores = 0;
 var turno = 1;
 
-// function tableroIJ (tablero, fila, columna) {
-
-//   alert(tablero[fila][columna]);
-// }
-
 /* Pantalla principal del juego. */
 router.get('/', function(req, res, next) {
   const session = req.session;
@@ -30,14 +26,21 @@ router.get('/', function(req, res, next) {
       }
     session.jugador = jugadores;
   }
-  const meToca = (turno == session.jugador);
-  console.log(meToca);
-  if (meToca == 1) {
-    usuario = "Blancas";
+
+  const ganador = comprobarGanador(tablero);
+  
+  if (ganador != 0) {
+    res.render("winner", {ganador})
   } else {
-    usuario = "Negras";
+    const meToca = (turno == session.jugador);
+    console.log(meToca);
+    if (meToca == 1) {
+      usuario = "Blancas";
+    } else {
+      usuario = "Negras";
+    }
+    res.render('index', { title: 'Ajedrez', tablero, meToca, usuario });
   }
-  res.render('index', { title: 'Ajedrez', tablero, meToca, usuario });
 });
 
 function esBlanca(ficha) {
@@ -47,25 +50,23 @@ function esNegra(ficha) {
   return (ficha.indexOf("N") == 0);
 }
 
-// idealmente, esta función colocaría un 0 en el punto
-// de origen (primer click) y sustituiría lo del
-// punto de destino (segundo click) por la ficha (si la 
-// validación en el lado cliente se completa).
-    // function ponerFicha(ficha, destino, origen) {
-    //   tablero.splice(destino, 1, ficha);
-    //   tablero.splice(origen, 1, 0);
-    // }
-// function ponerFicha(ficha, filaDestino, filaOrigen, columnaDestino, columnaOrigen) {
-//   tablero[[filaOrigen, columnaOrigen]] = 0;
-//   tablero[[filaDestino, columnaDestino]] = ficha; 
-// }
-
-router.post('/ponerficha', function(req, res, next) {
-  // esto contiene la posición del botón que hemos pulsado 
-  const {fila, columna, ficha} = req.body;
-  console.log(fila,columna,ficha);
-
-  res.render('index', { title: 'Ajedrez', tablero });
+router.post('/moverficha', function(req, res, next) {
+  // alternamos el turno
+  if (turno == 1) {
+    turno = 2;
+  } else {
+    turno = 1;
+  }
+  res.redirect('/');
 });
+
+router.get("/miturno", function(req, res, next) {
+  const meToca = (turno == req.session.jugador);
+  if (meToca) {
+    res.status(200).json(true);
+  } else {
+    res.status(400).json(false);
+  }
+})
 
 module.exports = router;
