@@ -1,25 +1,37 @@
+function comprobarGanador(t) { 
+    // comprobar si hay ficha Rey Negra
+    function comprobarNR(t) {
+        return (t[f][c] == "NR");
+    }
+    // comprobar si hay ficha Rey Blanca
+    function comprobarBR(t) {
+        return (t[f][c] == "BR");
+    }
+    // comprobar si hay ficha Dama Negra
+    function comprobarND(t) {
+        return (t[f][c] == "ND")
+    }
+    // comrobar si hay ficha Dama Blanca
+    function comprobarBD(t) {
+        return (t[f][c] == "BD")
+    }
 
-function comprobarGanador(t, f, c) { 
-    // comprobar si hay ficha con la N
-    function comprobarN(t) {
-        return (t[f][c][0] == "N");
-    }
-    // comprobar si hay ficha con la B
-    function comprobarB(t) {
-        return (t[f][c][0] == "B");
-    }
+    // recorrer todo el tablero en busca de esas piezas
     for (var f = 0; f < 8; f++) {
         for (var c = 0; c < 8; c++) {
-        comprobarN(t);
-        comprobarB(t);
+        comprobarNR(t);
+        comprobarBR(t);
+        comprobarND(t);
+        comprobarBD(t);
         }
     }
+    
+    // si no quedan ni R ni D de un color, gana el del otro color
     var B = "Blancas";
     var N = "Negras";
-    // si no quedan fichas de una letra, gana el del otro color
-    if (!comprobarN(t)) {
+    if (!comprobarNR(t) && !comprobarND(t)) {
         return B;
-    } else if (!comprobarB(t)) {
+    } else if (!comprobarBR(t) && comprobarBD(T)) {
         return N;
     } else {
         return 0;

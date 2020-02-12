@@ -8,58 +8,69 @@
     <h1><%= title %></h1>
     <h2>Tienes las fichas <%= usuario %></h2>
     <table>
+      <!-- Si es el jugador 1 -->
       <% if (meToca == 1) { %>
+        <!-- Pintamos el tablero desde arriba, mostrando las blancas abajo -->
         <% for (var f = 0; f < 8; f++) { %>
           <tr>
           <% for (var c = 0; c < 8; c++) { %>
-              <td>
-                <% if (t[f][c] == 0) { %>
+            <td>
+              <% if (t[f][c] == 0) { %>
+                <!-- Si no hay ficha  -->
                 <input type="hidden" name="fila" value="<%= f %>" />
                 <input type="hidden" name="columna" value="<%= c %>" />
                 <input type="submit" value="."/>
-                <% } else if ( t[f][c].indexOf("N") == 0){ %>
-                  <input type="hidden" name="fila" value="<%= f %>" />
-                  <input type="hidden" name="columna" value="<%= c %>" />
-                  <input type="submit" value="<%= t[f][c] %>"/>
-                  <% } else { %>
-                  <form action="/moverficha" method="post">
+              <% } else if ( t[f][c].indexOf("N") == 0){ %>
+                <!-- Si hay ficha Negra -->
+                <input type="hidden" name="fila" value="<%= f %>" />
+                <input type="hidden" name="columna" value="<%= c %>" />
+                <input type="submit" value="<%= t[f][c] %>"/>
+              <% } else { %>
+                <!-- Si hay ficha Blanca -->
+                <form action="/moverficha" method="post">
                   <input type="hidden" name="fila" value="<%= f %>" />
                   <input type="hidden" name="columna" value="<%= c %>" />
                   <input type="submit" class="available" name="ficha" value="<%= t[f][c] %>"/>
-                  </form>
-                  <% } %>
-                </td> 
-                <% } %>
-              </tr>
+                </form>
               <% } %>
-              <% } else { %>
-                <% for (var f = 7; f > -1; f--) { %>
-                  <tr>
-                  <% for (var c = 0; c < 8; c++) { %>
-                      <td>
+            </td> 
+          <% } %>
+          </tr>
+        <% } %>
+      <!-- Si es el jugador 2,  -->
+      <% } else { %>
+        <!-- Pintamos el tablero desde abajo, mostrando las negras abajo -->
+        <!-- De esta forma, ambos jugadores verán el tablero desde el mismo lado -->
+        <% for (var f = 7; f > -1; f--) { %>
+          <tr>
+            <% for (var c = 0; c < 8; c++) { %>
+              <td>
                 <% if (t[f][c] == 0) { %>
+                  <!-- Si no hay ficha -->
                   <input type="hidden" name="fila" value="<%= f %>" />
                   <input type="hidden" name="columna" value="<%= c %>" />
                   <input type="submit" value="."/>
-                  <% } else if ( t[f][c].indexOf("B") == 0){ %>
-                    <input type="hidden" name="fila" value="<%= f %>" />
-                    <input type="hidden" name="columna" value="<%= c %>" />
-                    <input type="submit" value="<%= t[f][c] %>"/>
-                  <% } else { %>
-                    <form action="/moverficha" method="post">
-
+                <% } else if ( t[f][c].indexOf("B") == 0){ %>
+                  <!-- Si hay ficha Blanca -->
+                  <input type="hidden" name="fila" value="<%= f %>" />
+                  <input type="hidden" name="columna" value="<%= c %>" />
+                  <input type="submit" value="<%= t[f][c] %>"/>
+                <% } else { %>
+                  <!-- Si hay ficha Negra -->
+                  <form action="/moverficha" method="post">
                     <input type="hidden" name="fila" value="<%= f %>" />
                     <input type="hidden" name="columna" value="<%= c %>" />
                     <input type="submit" class="available" name="ficha" value="<%= t[f][c] %>"/>
-                    </form>
-                    <% } %>
-              <% } %>
-            </td> 
+                  </form>
+                <% } %>
+              </td> 
+            <% } %>
+          </tr>
         <% } %>
-      </tr>
       <% } %>
     </table>
 
+    <!-- Comprobar si es el turno de cada jugador -->
     <% if (!meToca) { %>
       <script>
         setInterval(function () {
@@ -68,6 +79,7 @@
               location.reload();
             }
           })
+          // Cada tres segundos (3000 ms)
         }, 3000);
       </script>
     <% } %>

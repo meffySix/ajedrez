@@ -40,6 +40,7 @@ router.get('/', function(req, res, next) {
   // }
 });
 
+// Al mover la ficha...
 router.post('/moverficha', function(req, res, next) {
   // alternamos el turno
   if (turno == 1) {
@@ -50,6 +51,7 @@ router.post('/moverficha', function(req, res, next) {
   res.redirect('/');
 });
 
+// Comprobar si es el turno del jugador o no
 router.get("/miturno", function(req, res, next) {
   const meToca = (turno == req.session.jugador);
   if (meToca) {
