@@ -19,7 +19,7 @@ function pMAB(f, c) {
         do {
         pM.push[f + 1, c - 1];
         f++;
-        c++;
+        c--;
         } while (t[f + 1, c - 1] === 0)
     }
 
@@ -34,7 +34,7 @@ function pMAB(f, c) {
     if (t[f - 1][c + 1] === 0) {        // si la casilla inferior derecha está vacía...
         do {
         pM.push[f - 1, c + 1];
-        f++;
+        f--;
         c++;
         } while (t[f - 1, c + 1] === 0)
     }
@@ -42,8 +42,8 @@ function pMAB(f, c) {
     if (t[f - 1][c - 1] === 0) {       // si la casilla inferior izquierda está vacía...
         do {
         pM.push[f - 1, c - 1];
-        f++;
-        c++;
+        f--;
+        c--;
         } while (t[f - 1, c - 1] === 0)
     }
 
