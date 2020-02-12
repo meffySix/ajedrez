@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    td {
+    border: solid 1px black;
+    width: 30px;
+    height: 30px;
+    }
+
+    tr:nth-child(odd) td:nth-child(even) {
+    background: gray;
+    }
+
+    tr:nth-child(even) td:nth-child(odd) {
+    background: gray;
+    }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js"></script>
+</head>
+<body>
+    <script>
+        $('td').on('click', function(event){
+            var $col = $(event.target)
+            alert($col.attr('data-row') + "," + $col.attr('data-column'))
+            });
+
+        function crearTablero() {
+
+            var tablero = '<table class="style.css" id="tablero">';
+
+            for (var f = 7; f > -1; f--) {
+                
+                tablero += '<tr>';
+                
+                for(var c = 0; c < 8; c++) tablero += '<td id="' + f + c + '"></td>';
+
+                tablero += '</tr>';
+            }
+
+            return tablero;
+
+            }
+
+    </script>
+</body>
+</html>

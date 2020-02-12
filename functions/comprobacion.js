@@ -1,5 +1,5 @@
 
-function comprobarGanador(tablero) { 
+function comprobarGanador(t, f, c) { 
     // comprobar si hay alguna ficha con N
     function comprobarN(tablero) {
         return (t[f][c][0] == "N");

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { comprobarGanador } = require ('../functions/comprobaciones')
+const { comprobarGanador } = require ('../functions/comprobacion')
 
 const tablero = [
   ["NT", "NC", "NA", "ND", "NR", "NA", "NC", "NT"],
@@ -26,9 +26,7 @@ router.get('/', function(req, res, next) {
       }
     session.jugador = jugadores;
   }
-
   const ganador = comprobarGanador(tablero);
-  
   if (ganador != 0) {
     res.render("winner", {ganador})
   } else {
@@ -42,13 +40,6 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Ajedrez', tablero, meToca, usuario });
   }
 });
-
-function esBlanca(ficha) {
-  return (ficha.indexOf("B") == 0);
-}
-function esNegra(ficha) {
-  return (ficha.indexOf("N") == 0);
-}
 
 router.post('/moverficha', function(req, res, next) {
   // alternamos el turno

@@ -1,7 +1,11 @@
+function esBlanca(ficha) {
+    return (ficha.indexOf("B") == 0);
+  }
+
 // POSIBLES MOVIMIENTOS ALFIL
 // SE PUEDE MOVER TODO LO QUE QUIERA EN CUALQUIER DIAGONAL MIENTRAS ESTÉ VACÍO
 // SI HAY UNA FICHA ENEMIGA, SOLO PUEDE LLEGAR HASTA AHÍ
-function pMA(f, c) {
+function pMAB(f, c) {
     var pM;
     if (t[f + 1][c + 1] === 0) {         // si la casilla superior derecha está vacía...
         do {
@@ -54,7 +58,7 @@ function pMA(f, c) {
 
 // POSIBLES MOVIMIENTOS REY
 // SOLO SE PUEDE MOVER UNO EN CUALQUIER DIRECCIÓN
-function pMR(f, c) {
+function pMRB(f, c) {
     var pM;
 
     if (t[f + 1][c + 1] === 0 || t[f + 1][c + 1][0] === "N") {  // si la casilla superior derecha está vacía o tiene una ficha enemiga...
@@ -95,7 +99,7 @@ function pMR(f, c) {
 function pMD(f, c) {
     var pM;
 
-    // MOVIMIENTOS ALFIL
+    // MOVIMIENTOS ALFIL PARA DAMA
     if (t[f + 1][c + 1] === 0 || t[f + 1][c + 1][0] === "N") {  // si la casilla superior derecha está vacía o tiene una ficha enemiga...
         pM.push[f + 1, c + 1];
     }
@@ -128,6 +132,6 @@ function pMD(f, c) {
         pM.push[f, c - 1];
     }
 
-    // MOVIMIENTOS TORRE
-    
+    // MOVIMIENTOS TORRE PARA DAMA
+
 }

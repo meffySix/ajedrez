@@ -8,11 +8,11 @@
     <h1><%= title %></h1>
     <h2>Tienes las fichas <%= usuario %></h2>
     <table>
-      <% for (var fila = 0; fila < 8; fila++) { %>
-        <tr>
-        <% for (var columna = 0; columna < 8; columna++) { %>
-            <td>
-              <% if (meToca == 1) { %>
+      <% if (meToca == 1) { %>
+        <% for (var fila = 0; fila < 8; fila++) { %>
+          <tr>
+          <% for (var columna = 0; columna < 8; columna++) { %>
+              <td>
                 <% if (tablero[fila][columna] == 0) { %>
                 <input type="hidden" name="fila" value="<%= fila %>" />
                 <input type="hidden" name="columna" value="<%= columna %>" />
@@ -28,7 +28,15 @@
                   <input type="submit" class="available" name="ficha" value="<%= tablero[fila][columna] %>"/>
                   </form>
                   <% } %>
+                </td> 
+                <% } %>
+              </tr>
+              <% } %>
               <% } else { %>
+                <% for (var fila = 7; fila > -1; fila--) { %>
+                  <tr>
+                  <% for (var columna = 0; columna < 8; columna++) { %>
+                      <td>
                 <% if (tablero[fila][columna] == 0) { %>
                   <input type="hidden" name="fila" value="<%= fila %>" />
                   <input type="hidden" name="columna" value="<%= columna %>" />
