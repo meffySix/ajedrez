@@ -15,6 +15,23 @@ const t = [
 var jugadores = 0;
 var turno = 1;
 
+
+const simbolos = {
+  NP: "\u265F",
+  BP: "\u2659",
+  "0": "",
+  NT: "\u265C",
+  BT: "\u2656",
+  NC: "\u265E",
+  BC: "\u2658",
+  NA: "\u265D",
+  BA: "\u2657",
+  ND: "\u265B",
+  BD: "\u2655",
+  NR: "\u265A",
+  BR: "\u2654"
+}
+
 /* Pantalla principal del juego. */
 router.get('/', function(req, res, next) {
   const session = req.session;
@@ -27,8 +44,8 @@ router.get('/', function(req, res, next) {
   }
   // const ganador = comprobarGanador(t);
   // if (ganador != 0) {
-  //   res.render("winner", {ganador})
-  // } else {
+  //    res.render("winner", {ganador})
+  //  } else {
     const meToca = (turno == session.jugador);
     console.log(meToca);
     if (session.jugador == 1) {
@@ -36,7 +53,7 @@ router.get('/', function(req, res, next) {
     } else {
       usuario = "Negras";
     }
-    res.render('index', { title: 'Ajedrez', t, meToca, usuario });
+    res.render('index', { title: 'Ajedrez', t, meToca, usuario, simbolos });
   // }
 });
 

@@ -1,3 +1,13 @@
+/**
+ * Esta función comprueba si en el tablero hay un
+ * jugador ganador.
+ * 
+ * Devuelve 1 ó 2 si ha ganado el jugador 1 o el 2,
+ * respectivamente; 0 si no hay ganador.
+ * 
+ * @param {*} tablero 
+ */
+
 function comprobarGanador(t) { 
     // comprobar si hay ficha Rey Negra
     function comprobarNR(t) {

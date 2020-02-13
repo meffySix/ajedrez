@@ -16,7 +16,7 @@
           <tr>
           <% for (var c = 0; c < 8; c++) { %>
             <td id="<%= f %><%= c %>" onclick="procesar(this.id)">
-              <%= t[f][c] %>
+              <%= simbolos[t[f][c]] %>
             </td> 
           <% } %>
           </tr>
@@ -26,7 +26,7 @@
             <tr>
             <% for (var c = 0; c < 8; c++) { %>
               <td>
-                <%= t[f][c] %>
+                <%= simbolos[t[f][c]] %>
               </td> 
             <% } %>
             </tr>
@@ -41,7 +41,7 @@
           <tr>
             <% for (var c = 0; c < 8; c++) { %>
               <td id="<%= f %><%= c %>" onclick="procesar(this.id)">
-                <%= t[f][c] %>
+                <%= simbolos[t[f][c]] %>
               </td> 
             <% } %>
           </tr>
@@ -51,7 +51,7 @@
             <tr>
             <% for (var c = 0; c < 8; c++) { %>
               <td>
-                <%= t[f][c] %>
+                <%= simbolos[t[f][c]] %>
               </td> 
             <% } %>
             </tr>
