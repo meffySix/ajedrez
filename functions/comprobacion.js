@@ -9,42 +9,29 @@
  */
 
 function comprobarGanador(t) { 
-    // comprobar si hay ficha Rey Negra
-    function comprobarNR(t) {
-        return (t[f][c] == "NR");
-    }
-    // comprobar si hay ficha Rey Blanca
-    function comprobarBR(t) {
-        return (t[f][c] == "BR");
-    }
-    // comprobar si hay ficha Dama Negra
-    function comprobarND(t) {
-        return (t[f][c] == "ND")
-    }
-    // comrobar si hay ficha Dama Blanca
-    function comprobarBD(t) {
-        return (t[f][c] == "BD")
-    }
+    
+    reyBlanco = false;
+    reyNegro = false;
+    
+    for (var fila = 1; fila < 8; fila++) {
 
-    // recorrer todo el tablero en busca de esas piezas
-    for (var f = 0; f < 8; f++) {
-        for (var c = 0; c < 8; c++) {
-        comprobarNR(t);
-        comprobarBR(t);
-        comprobarND(t);
-        comprobarBD(t);
-        }
+        if (!reyBlanco && 'BR' in t[fila]) reyBlanco = true;
+        if (!reyNegro && 'NR' in t[fila]) reyNegro = true;
     }
     
-    // si no quedan ni R ni D de un color, gana el del otro color
-    var B = "Blancas";
-    var N = "Negras";
-    if (!comprobarNR(t) && !comprobarND(t)) {
-        return B;
-    } else if (!comprobarBR(t) && comprobarBD(T)) {
-        return N;
-    } else {
-        return 0;
+    switch(true) {
+
+        case(reyBlanco && !reyNegro):
+        
+            return 'BLANCAS';
+
+        case(reyNegro && !ReyBlanco):
+
+            return 'NEGRAS';
+
+        default:
+        
+        
     }
 }
 
