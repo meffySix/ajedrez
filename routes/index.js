@@ -19,7 +19,6 @@ var turno = 1;
 const simbolos = {
   NP: "\u265F",
   BP: "\u2659",
-  "0": "",
   NT: "\u265C",
   BT: "\u2656",
   NC: "\u265E",
@@ -29,7 +28,8 @@ const simbolos = {
   ND: "\u265B",
   BD: "\u2655",
   NR: "\u265A",
-  BR: "\u2654"
+  BR: "\u2654",
+  "0": ""
 }
 
 /* Pantalla principal del juego. */
