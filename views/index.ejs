@@ -7,68 +7,160 @@
   <body>
     <h1><%= title %></h1>
     <h2>Tienes las fichas <%= usuario %></h2>
-    <table>
+    <table id="tablero">
       <!-- Si es el jugador 1 -->
-      <% if (meToca == 1) { %>
+      <% if (usuario == "Blancas") { %>
         <!-- Pintamos el tablero desde arriba, mostrando las blancas abajo -->
+        <% if (meToca) { %>
         <% for (var f = 0; f < 8; f++) { %>
           <tr>
           <% for (var c = 0; c < 8; c++) { %>
-            <td>
-              <% if (t[f][c] == 0) { %>
-                <!-- Si no hay ficha  -->
-                <input type="hidden" name="fila" value="<%= f %>" />
-                <input type="hidden" name="columna" value="<%= c %>" />
-                <input type="submit" value="."/>
-              <% } else if ( t[f][c].indexOf("N") == 0){ %>
-                <!-- Si hay ficha Negra -->
-                <input type="hidden" name="fila" value="<%= f %>" />
-                <input type="hidden" name="columna" value="<%= c %>" />
-                <input type="submit" value="<%= t[f][c] %>"/>
-              <% } else { %>
-                <!-- Si hay ficha Blanca -->
-                <form action="/moverficha" method="post">
-                  <input type="hidden" name="fila" value="<%= f %>" />
-                  <input type="hidden" name="columna" value="<%= c %>" />
-                  <input type="submit" class="available" name="ficha" value="<%= t[f][c] %>"/>
-                </form>
-              <% } %>
+            <td id="<%= f %><%= c %>" onclick="procesar(this.id)">
+              <%= t[f][c] %>
             </td> 
           <% } %>
           </tr>
+        <% } %>
+        <% } else { %>
+          <% for (var f = 0; f < 8; f++) { %>
+            <tr>
+            <% for (var c = 0; c < 8; c++) { %>
+              <td>
+                <%= t[f][c] %>
+              </td> 
+            <% } %>
+            </tr>
+          <% } %>
         <% } %>
       <!-- Si es el jugador 2,  -->
       <% } else { %>
         <!-- Pintamos el tablero desde abajo, mostrando las negras abajo -->
         <!-- De esta forma, ambos jugadores verán el tablero desde el mismo lado -->
+        <% if (meToca) { %>
         <% for (var f = 7; f > -1; f--) { %>
           <tr>
             <% for (var c = 0; c < 8; c++) { %>
-              <td>
-                <% if (t[f][c] == 0) { %>
-                  <!-- Si no hay ficha -->
-                  <input type="hidden" name="fila" value="<%= f %>" />
-                  <input type="hidden" name="columna" value="<%= c %>" />
-                  <input type="submit" value="."/>
-                <% } else if ( t[f][c].indexOf("B") == 0){ %>
-                  <!-- Si hay ficha Blanca -->
-                  <input type="hidden" name="fila" value="<%= f %>" />
-                  <input type="hidden" name="columna" value="<%= c %>" />
-                  <input type="submit" value="<%= t[f][c] %>"/>
-                <% } else { %>
-                  <!-- Si hay ficha Negra -->
-                  <form action="/moverficha" method="post">
-                    <input type="hidden" name="fila" value="<%= f %>" />
-                    <input type="hidden" name="columna" value="<%= c %>" />
-                    <input type="submit" class="available" name="ficha" value="<%= t[f][c] %>"/>
-                  </form>
-                <% } %>
+              <td id="<%= f %><%= c %>" onclick="procesar(this.id)">
+                <%= t[f][c] %>
               </td> 
             <% } %>
           </tr>
         <% } %>
+        <% } else { %>
+          <% for (var f = 7; f > -1; f--) { %>
+            <tr>
+            <% for (var c = 0; c < 8; c++) { %>
+              <td>
+                <%= t[f][c] %>
+              </td> 
+            <% } %>
+            </tr>
+          <% } %>
       <% } %>
+    <% } %>
     </table>
+
+    <script>
+
+      const t = // variable que representa nuestro tablero, empezando por B las piezas blancas y por N las piezas negras
+      [['NT', 'NC', 'NA', 'NR', 'ND', 'NA', 'NC', 'NT'], // acabando por T la torre, por A el alfil, por C el caballo, por R ek rey y por D la Dama
+      ['NP', 'NP', 'NP', 'NP', 'NP', 'NP', 'NP', 'NP'], // acabando todas por P, son los peones
+      ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], // colocamos una 'X en cada casilla que se encuentre vacia'
+      ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+      ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+      ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+      ['BP', 'BP', 'BP', 'BP', 'BP', 'BP', 'BP', 'BP'], // fila de peones blandos
+      ['BT', 'BC', 'BA', 'BR', 'BD', 'BA', 'BC', 'BT']]; // resto de piezas
+
+      const sC = [[2, 1], [1, 2], [-1, 2], [-2, 1], [-2, -1], [-1, -2], [1, -2], [2, -1]]; //variable que representa los saltos del caballo
+      
+      var formulario = document.createElement('form');
+      //formulario = document.setAttribute('name', 'envio');
+      formulario.setAttribute('method', 'post');
+      formulario.setAttribute('action', '/moverficha'); // falta colocar la página en cuestión
+      var mensaje = document.createElement('input');
+      mensaje.setAttribute('type', 'hidden');
+      mensaje.setAttribute('name', 'movimiento');
+      mensaje.setAttribute('value', '');
+      formulario.appendChild(mensaje);
+      document.body.appendChild(formulario);
+      
+       
+      function pMPB(f, c) { // función que devuelve los posibles movimientos de un peon blanco, le pasamos la fila y la columna de nuestro peon
+
+          var pM; // array que devuelve los posibles movimientos de nuestro peon
+          
+          if(t[f + 1][c] === 'X') { // comprobamos que la casilla de nuestro peon se encuentre vacia
+
+              pM.push([f + 1, c]); // si se encuentra vacia se introduce esta casilla en posibles movimientos
+          
+              if(f === 1 && t[3][c] === 'X') pM.push([3, c]); // si nuestro peon todavía no se ha movido, estara en la fila uno, comprobamos el movimiento de dos casillas
+          }
+
+          if(t[f + 1][c + 1] && (t[f + 1][c + 1] === 'X' || t[f + 1][c + 1][0] === 'N')) pM.push([f + 1, c + 1]);
+
+          if(t[f + 1][c - 1] && (t[f + 1][c - 1] === 'X' || t[f + 1][c - 1][0] === 'N')) pM.push([f + 1, c - 1]);
+
+          return pM;
+      }
+
+      function pMCB(f, c) {
+
+          var pM;
+          
+          for(var c = 0; c < sC.length; c++) {
+
+              fN = f + sC[c][0];
+              cN = c + sC[c][1];
+              
+              if (t[fN][cN] && (t[fN][cN] === 'X' || t[fN][cN][0] === 'N')) pM.push([fN, cN]);
+          }
+
+          return pM;
+      }
+
+      function crearTablero() {
+
+          var tablero = '<table id="tablero">';
+          
+          for (var f = 7; f > -1; f--) {
+              
+              tablero += '<tr>';
+              
+              for(var c = 0; c < 8; c++) tablero += '<td id="' + f + c + '" onclick="procesar(this.id)">';
+
+              tablero += '</tr>';
+          }
+
+          //escaques = tablero.getElementById('td');
+          //escaques[0][0].innerHTML = '<image'
+      
+          return tablero;
+      
+      }
+      
+      var tablero = crearTablero();
+      //escaques = tablero.getElementsByTag('td');
+      
+      //for (var c = 0; c < escaques.length; c++) {
+
+          //escaques[c].addEventListener('onclick', procesar(this.id));
+      //}
+
+      // document.write(tablero);
+
+      function procesar(id) {
+
+          if (mensaje.value.length) {
+              mensaje.value += id;
+              formulario.submit();
+              mensaje.value = '';
+          }
+
+          else mensaje.value = id;
+      }
+
+  </script>
 
     <!-- Comprobar si es el turno de cada jugador -->
     <% if (!meToca) { %>

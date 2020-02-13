@@ -109,4 +109,33 @@ function pMDN(f, c) {
         pM.push[f, c - 1];
     }
     // MOVIMIENTOS TORRE PARA DAMA
+    if (t[f + 1][c] === 0 || t[f + 1][c][0] === "B") {        // si la casilla superior está vacía...
+        do {
+        pM.push[f + 1, c];
+        f++;
+        } while (t[f + 1, c] === 0)
+    }
+    if (t[f - 1][c] === 0 || t[f - 1][c][0] === "B") {        // si la casilla inferior está vacía...
+        do {
+        pM.push[f - 1, c];
+        f--;
+        } while (t[f - 1, c] === 0)
+    }
+    if (t[f][c + 1] === 0 || t[f][c + 1][0] === "B") {        // si la casilla derecha está vacía...
+        do {
+        pM.push[f, c + 1];
+        c++;
+        } while (t[f, c + 1] === 0)
+    }
+    if (t[f][c - 1] === 0 || t[f][c - 1][0] === "B") {        // si la casilla izquierda está vacía...
+        do {
+        pM.push[f, c - 1];
+        c--;
+        } while (t[f, c - 1] === 0)
+    }
 }
+// POSIBLES MOVIMIENTOS TORRE
+
+// POSIBLES MOVIMIENTOS PEÓN
+
+// POSIBLES MOVIMIENTOS CABALLo

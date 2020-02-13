@@ -1,7 +1,24 @@
 function esBlanca(ficha) {
     return (ficha.indexOf("B") == 0);
   }
-
+function esAlfil(ficha) {
+    return (ficha.infexOf("A") == 1);
+}
+function esTorre(ficha) {
+    return (ficha.infexOf("T") == 1);
+}
+function esCaballo(ficha) {
+    return (ficha.infexOf("C") == 1);
+}
+function esPeon(ficha) {
+    return (ficha.infexOf("P") == 1);
+}
+function esRey(ficha) {
+    return (ficha.infexOf("R") == 1);
+}
+function esDama(ficha) {
+    return (ficha.infexOf("D") == 1);
+}
 // POSIBLES MOVIMIENTOS ALFIL
 // SE PUEDE MOVER TODO LO QUE QUIERA EN CUALQUIER DIAGONAL MIENTRAS ESTÉ VACÍO
 // SI HAY UNA FICHA ENEMIGA, SOLO PUEDE LLEGAR HASTA AHÍ
@@ -109,4 +126,33 @@ function pMDB(f, c) {
         pM.push[f, c - 1];
     }
     // MOVIMIENTOS TORRE PARA DAMA
+    if (t[f + 1][c] === 0 || t[f + 1][c][0] === "N") {        // si la casilla superior está vacía...
+        do {
+        pM.push[f + 1, c];
+        f++;
+        } while (t[f + 1, c] === 0)
+    }
+    if (t[f - 1][c] === 0 || t[f - 1][c][0] === "N") {        // si la casilla inferior está vacía...
+        do {
+        pM.push[f - 1, c];
+        f--;
+        } while (t[f - 1, c] === 0)
+    }
+    if (t[f][c + 1] === 0 || t[f][c + 1][0] === "N") {        // si la casilla derecha está vacía...
+        do {
+        pM.push[f, c + 1];
+        c++;
+        } while (t[f, c + 1] === 0)
+    }
+    if (t[f][c - 1] === 0 || t[f][c - 1][0] === "N") {        // si la casilla izquierda está vacía...
+        do {
+        pM.push[f, c - 1];
+        c--;
+        } while (t[f, c - 1] === 0)
+    }
 }
+// POSIBLES MOVIMIENTOS TORRE
+
+// POSIBLES MOVIMIENTOS PEÓN
+
+// POSIBLES MOVIMIENTOS CABALLo

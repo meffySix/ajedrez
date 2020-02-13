@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
   // } else {
     const meToca = (turno == session.jugador);
     console.log(meToca);
-    if (meToca == 1) {
+    if (session.jugador == 1) {
       usuario = "Blancas";
     } else {
       usuario = "Negras";
@@ -42,12 +42,24 @@ router.get('/', function(req, res, next) {
 
 // Al mover la ficha...
 router.post('/moverficha', function(req, res, next) {
-  // alternamos el turno
+  
   if (turno == 1) {
     turno = 2;
   } else {
     turno = 1;
   }
+  
+  var movimiento = req.body.movimiento;
+  var filaOrigen = movimiento[0];
+  var columnaOrigen = movimiento[1];
+  var filaDestino = movimiento[2];
+  var columnaDestino = movimiento[3];
+  t[filaDestino][columnaDestino] = t[filaOrigen][columnaOrigen];
+  t[filaOrigen][columnaOrigen] = 0;
+  // console.log('origen: ' + origen);
+  // console.log('destino: ' + destino);
+  // al enviar el movimiento, actualizar el tablero
+  console.log(movimiento);
   res.redirect('/');
 });
 
