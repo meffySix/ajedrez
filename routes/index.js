@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const { comprobarGanador } = require('../functions/comprobacion');
 
 const t = [
   ["NT", "NC", "NA", "ND", "NR", "NA", "NC", "NT"],
@@ -42,10 +43,11 @@ router.get('/', function(req, res, next) {
       }
     session.jugador = jugadores;
   }
-  // const ganador = comprobarGanador(t);
-  // if (ganador != 0) {
-  //    res.render("winner", {ganador})
-  //  } else {
+  const ganador = comprobarGanador(t);
+  console.log(ganador);
+  if (ganador != 0) {
+     res.render("winner", {ganador})
+   } else {
     const meToca = (turno == session.jugador);
     console.log(meToca);
     if (session.jugador == 1) {
@@ -54,7 +56,7 @@ router.get('/', function(req, res, next) {
       usuario = "Negras";
     }
     res.render('index', { title: 'Ajedrez', t, meToca, usuario, simbolos });
-  // }
+  }
 });
 
 // Al mover la ficha...

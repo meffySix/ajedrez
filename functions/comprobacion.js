@@ -5,34 +5,43 @@
  * Devuelve 1 ó 2 si ha ganado el jugador 1 o el 2,
  * respectivamente; 0 si no hay ganador.
  * 
- * @param {*} tablero 
+ * @param {*} t 
  */
 
 function comprobarGanador(t) { 
     
-    reyBlanco = false;
-    reyNegro = false;
+    ReyBlanco = false;
+    ReyNegro = false;
     
-    for (var fila = 1; fila < 8; fila++) {
+    for (var fila = 0; fila < t.length; fila++) {
 
-        if (!reyBlanco && 'BR' in t[fila]) reyBlanco = true;
-        if (!reyNegro && 'NR' in t[fila]) reyNegro = true;
+        if(t[fila].indexOf('BR') + 1) {
+
+            console.log(typeof(t[fila]));
+            
+            ReyBlanco = true;
+
+            if(ReyNegro) return 0;
+        }
+
+        if(t[fila].indexOf('NR') + 1) {
+            
+            ReyNegro = true;
+
+            if(ReyBlanco) return 0;
+        }
+    }
+        
+    if(ReyBlanco) {
+
+        if(ReyNegro) return 0;
+    
+        return 'BLANCAS'
+    
     }
     
-    switch(true) {
+    return 'NEGRAS';
 
-        case(reyBlanco && !reyNegro):
-        
-            return 'BLANCAS';
-
-        case(reyNegro && !ReyBlanco):
-
-            return 'NEGRAS';
-
-        default:
-        
-        
-    }
 }
 
 module.exports = {

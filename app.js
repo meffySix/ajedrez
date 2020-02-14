@@ -13,7 +13,7 @@ var app = express();
 app.use(cookieSession({
   name: 'session',
   // claves de las cookies
-  keys: ['QMpwdswqwsdfdsdsdsddsdsadd8^h1-BK', 'IV*saqweffdddsdssdsddwfddsrlTpasd25'],
+  keys: ['QMpwdswqwsdfdshjhddsadd8^h1-BK', 'IV*saqwrdtffdjhsdsddddsrlTpasd25'],
   maxAge: 60 * 60 * 1000
 }))
 
